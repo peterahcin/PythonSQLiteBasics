@@ -116,10 +116,24 @@ def update_task(conn, task):
     conn.commit()
 
 
+def delete_project(conn, id):
+    """
+    Delete the project given by project id
+    :param conn:
+    :param id:
+    :return:
+    """
+    sql = 'DELETE FROM projects WHERE id=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    conn.commit()
+
+
 def main():
 
     conn = create_connection(database)
 
+    """ create tables """
     # with conn:
     #     project = ('New project', '2020-08-03', '2030-08-04')
     #     project_id = create_project(conn, project)
@@ -130,9 +144,14 @@ def main():
     #     create_task(conn, task_1)
     #     create_task(conn, task_2)
 
+    """ update task table """
+    # with conn:
+    #     task_update = (3, '2020-08-03', 2)
+    #     update_task(conn, task_update)
+
+    """ delete data """
     with conn:
-        task_update = (3, '2020-08-03', 2)
-        update_task(conn, task_update)
+        delete_project(conn, 1)
 
 
 if __name__ == '__main__':
